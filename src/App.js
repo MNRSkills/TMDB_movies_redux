@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useDebugValue } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPopMovies } from "./redux/moviesReducer";
+import { fetchPopMovies } from "./features/moviesReducer";
 import "./App.css";
 import Popular from "./Component/pages/popular";
 import SearchRes from "./Component/pages/searchRes";

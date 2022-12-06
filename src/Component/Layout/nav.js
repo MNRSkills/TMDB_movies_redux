@@ -1,34 +1,31 @@
-import React, { useEffect, useState } from "react";
-import { SearchMovieTitle } from "../../redux/moviesReducer";
+import React, { useEffect, useState, useRef } from "react";
+import { SearchMovieTitle, clearSearch } from "../../features/moviesReducer";
 import { useDispatch, useSelector } from "react-redux";
+import BackBtn from "../backBtn";
 
 import SearchBar from "./searchBar";
 
 const Nav = () => {
   const [searchMovie, setSearchBar] = useState("");
   const dispatch = useDispatch();
-  // const {data } = useGetSearchMovie('Jaws')
+  const inputEl = useRef("");
+  console.log("THIS IS REF", inputEl.current.value);
 
-  const handleSubmit = (e) => {
-    // console.log("this works on submit", e);
-    dispatch(SearchMovieTitle(searchMovie))
-    e.preventDefault();
-  };
+  dispatch(SearchMovieTitle(searchMovie));
 
-  useEffect(() => {
-    // renderPage();
-  }, []);
   return (
-    <div className="nav h-20">
-      <h1 className="font-bold text-lg">TMDB</h1>
+    <div className="nav h-20 container flex justify-between">
+      <h1 className="font-bold text-lg p-4">TMDB</h1>
       <span>
         <img src="" alt="" />
       </span>
-      <SearchBar
-        handleChange={(e) => setSearchBar(e.target.value)}
-        handleSubmit={(e) => handleSubmit(e)}
-        movies={searchMovie}
-      />
+      <div className="p-4">
+        <SearchBar
+          handleChange={(e) => setSearchBar(e.target.value)}
+          movies={searchMovie}
+          inputRef={inputEl}
+        />
+      </div>
     </div>
   );
 };
