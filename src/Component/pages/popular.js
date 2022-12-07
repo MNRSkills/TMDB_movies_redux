@@ -12,7 +12,7 @@ const Popular = (props) => {
   }, []);
   return (
     <div className="popular-page ">
-      <div className="card-grid grid lg:grid-cols-4 gap-4 grid-cols-1">
+      <div className="card-grid flex">
         {popularMovies.map((items, index) => {
           return <Card popular={items} key={index} />;
         })}

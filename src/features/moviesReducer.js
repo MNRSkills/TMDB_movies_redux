@@ -10,6 +10,15 @@ export const fetchPopMovies = createAsyncThunk("popMovies", async () => {
     .catch((error) => `${error}`);
 });
 
+export const fetchTopRated = createAsyncThunk("topRated", async () => {
+  return await axios
+    .get("http://localhost:4000/top_rated")
+    .then((response) => {
+      return response.data.results;
+    })
+    .catch((error) => `${error}`);
+});
+
 export const SearchMovieTitle = createAsyncThunk(
   "searchMovies",
   async (searchBar) => {
@@ -28,7 +37,8 @@ const initialState = {
   isLoading: false,
   popular: [],
   error: "",
-  searchMovie: null,
+  searchMovie: "",
+  topRated: [],
 };
 
 export const movieSlice = createSlice({
@@ -36,7 +46,7 @@ export const movieSlice = createSlice({
   initialState,
   reducers: {
     clearSearch(state) {
-      state.searchMovie = null;
+      state.searchMovie = "";
     },
   },
 
@@ -51,6 +61,9 @@ export const movieSlice = createSlice({
     builder.addCase(SearchMovieTitle.fulfilled, (state, action) => {
       state.isLoading = false;
       state.searchMovie = action.payload;
+    });
+    builder.addCase(fetchTopRated.fulfilled, (state, action) => {
+      state.topRated = action.payload;
     });
   },
 });

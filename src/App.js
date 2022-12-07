@@ -4,6 +4,7 @@ import { fetchPopMovies } from "./features/moviesReducer";
 import "./App.css";
 import Popular from "./Component/pages/popular";
 import SearchRes from "./Component/pages/searchRes";
+import TopRated from "./Component/pages/topRated";
 
 function App() {
   const movieSearch = useSelector((state) => state.popularMovies.searchMovie);
@@ -12,10 +13,15 @@ function App() {
   // useEffect(() => {
   //   dispatch(fetchPopMovies());
   // }, []);
-  if (movieSearch == null) {
+  if (movieSearch == "") {
     return (
       <div className="App bg-green-500 h-full">
-        <Popular />
+        <div className="popular-row">
+          <Popular />
+        </div>
+        <div className="top-rated-row ">
+          <TopRated />
+        </div>
       </div>
     );
   } else {
