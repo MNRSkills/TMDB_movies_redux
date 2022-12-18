@@ -1,19 +1,18 @@
 import React from "react";
 
-const Card = ({ popular }) => {
-  // console.log(popular);
-  const { title, overview, original_language, genre_ids, poster_path } =
-    popular;
+const Card = ({item}) => {
+  // console.log("Looking for two props", item);
+  // const { title, overview, original_language, genre_ids, poster_path } =
+  //   props.popular;
+
   return (
-    <div className="border-purple-200 grid md:grid-cols  gap-2 p-2 shadow-lg bg-cyan-200">
-      <div className="img w-full">
-        <img src={`https://image.tmdb.org/t/p/w500/${poster_path}`} alt="" />
-      </div>
-      <h1>{title}</h1>
-      {/* <article className="w-full">
-        <h1 className="font-bold font-sans mt-0 text-lg ">{title}</h1>
-        <p className="text-black text-left overflow-hidden leading-loose">{overview}</p>
-      </article> */}
+    <div className="border-2 border-white mx-5">
+      <img
+        src={`https://image.tmdb.org/t/p/w500/${item?.poster_path}`}
+        alt=""
+        className="object-contain w-full transition transform ease-in-out hover:scale-110"
+      />
+      <h1 className="p-10 ">{item?.title}</h1>
     </div>
   );
 };

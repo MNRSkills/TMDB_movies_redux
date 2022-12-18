@@ -33,12 +33,22 @@ export const SearchMovieTitle = createAsyncThunk(
   }
 );
 
+export const fetchNowPlaying = createAsyncThunk("nowPlaying", async () => {
+  await axios
+    .get("http://localhost:4000/now-playing")
+    .then((response) => {
+      return response.data.results;
+    })
+    .catch((error) => console.log("ERRORO", error));
+});
+
 const initialState = {
   isLoading: false,
   popular: [],
   error: "",
   searchMovie: "",
   topRated: [],
+  nowPlaying: [],
 };
 
 export const movieSlice = createSlice({
@@ -64,6 +74,9 @@ export const movieSlice = createSlice({
     });
     builder.addCase(fetchTopRated.fulfilled, (state, action) => {
       state.topRated = action.payload;
+    });
+    builder.addCase(fetchNowPlaying.fulfilled, (state, action) => {
+      state.nowPlaying = action.payload;
     });
   },
 });

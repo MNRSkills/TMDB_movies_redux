@@ -9,7 +9,8 @@ const Nav = () => {
   const [searchMovie, setSearchBar] = useState("");
   const dispatch = useDispatch();
   const inputEl = useRef("");
-  console.log("THIS IS REF", inputEl.current.value);
+
+  const searchWords = searchMovie + " ";
 
   dispatch(SearchMovieTitle(searchMovie));
 
@@ -23,7 +24,7 @@ const Nav = () => {
         <SearchBar
           handleChange={(e) => setSearchBar(e.target.value)}
           movies={searchMovie}
-          inputRef={inputEl}
+          // inputRef={inputEl} so we can use to remove the search words
         />
       </div>
     </div>
