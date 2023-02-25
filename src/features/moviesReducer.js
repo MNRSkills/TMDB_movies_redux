@@ -19,27 +19,41 @@ export const fetchTopRated = createAsyncThunk("topRated", async () => {
     .catch((error) => `${error}`);
 });
 
+export const fetchNowPlaying = createAsyncThunk("nowPlaying", async () => {
+  return await axios
+    .get("http://localhost:4000/now-playing")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => `${error}`);
+});
+
+export const fetchShowsPop = createAsyncThunk("tvShowPop", async () => {
+  return await axios
+    .get("http://localhost:4000/tv-shows")
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => `${error}`);
+});
+
 export const SearchMovieTitle = createAsyncThunk(
   "searchMovies",
   async (searchBar) => {
-    console.log("THIS IS  THE REACTR QUERY", searchBar);
     return await axios
       .get(`http://localhost:4000/search/:${searchBar}`)
       .then((response) => {
-        // console.log("THIS SI SWORKKING", response.data.results);
         return response.data.results;
       })
       .catch((error) => `${error}`);
   }
 );
 
-export const fetchNowPlaying = createAsyncThunk("nowPlaying", async () => {
-  await axios
-    .get("http://localhost:4000/now-playing")
-    .then((response) => {
-      return response.data.results;
-    })
-    .catch((error) => console.log("ERRORO", error));
+export const LoginForm = createAsyncThunk("loginForm", async () => {
+  return await axios
+    .post(`http://localhost:4000/db/login`)
+    .then((response) => console.log("THIS WORKS LOGIN", response.data))
+    .catch((error) => console.log("ERROOR", error));
 });
 
 const initialState = {
@@ -49,6 +63,12 @@ const initialState = {
   searchMovie: "",
   topRated: [],
   nowPlaying: [],
+  tvShows: [],
+  loginStatus: {
+    Status: false,
+    token: "",
+    refreshToken: "",
+  },
 };
 
 export const movieSlice = createSlice({
@@ -75,8 +95,26 @@ export const movieSlice = createSlice({
     builder.addCase(fetchTopRated.fulfilled, (state, action) => {
       state.topRated = action.payload;
     });
+    builder.addCase(fetchNowPlaying.pending, (state) => {
+      state.isLoading = true;
+    });
     builder.addCase(fetchNowPlaying.fulfilled, (state, action) => {
-      state.nowPlaying = action.payload;
+      state.isLoading = false;
+      state.nowPlaying.push(action.payload);
+    });
+    builder.addCase(fetchShowsPop.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchShowsPop.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.tvShows.push(action.payload);
+    });
+    builder.addCase(LoginForm.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(LoginForm.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.loginStatus = action.payload;
     });
   },
 });

@@ -1,5 +1,5 @@
 import React from "react";
-
+//PROPS IS COMING FROM NAV.JS, HANDLING ANY INPUT
 const SearchBar = (props) => {
   return (
     <input

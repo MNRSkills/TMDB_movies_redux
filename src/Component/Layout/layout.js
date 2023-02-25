@@ -4,7 +4,7 @@ import Nav from "./nav";
 
 const Layout = (props) => {
   return (
-    <div className="Layout bg-yellow-500">
+    <div className="Layout bg-yellow-500 relative">
       <div className="Navbar">
         <Nav />
       </div>
